@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+
+if [ $# -lt 3 ]; then 
+	echo "$0 USER KEY IP_ADDRESS_OR_HOSTNAME..."
+	exit 1
+fi
+
+USER="$1"
+KEY="$2"
+IPS="${@:3}"
+for IP in $IPS
+do
+	echo "copy $KEY to $IP"
+	ssh-copy-id -i $KEY $USER@$IP 
+done
+
